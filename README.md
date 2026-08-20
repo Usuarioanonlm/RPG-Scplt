@@ -46,6 +46,26 @@ O GitHub recebe todo o código-fonte, o esquema e as migrações como arquivos n
 
 O fluxo em [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) é adequado apenas para a versão estática. Para usar nick, senha e progresso persistente em produção, publique a aplicação full-stack em uma hospedagem compatível com Node.js e banco de dados, mantendo o repositório GitHub como fonte versionada do código e das migrações.
 
+### Pré-requisitos de runtime persistente
+
+A aplicação com conta e salvamento exige **Node.js 22+**, **pnpm 10+** e uma instância **MySQL 8+ ou TiDB** acessível pelo servidor. Antes da primeira execução, instale as dependências, aplique as migrações e configure as variáveis no provedor de hospedagem — nunca em arquivos versionados:
+
+| Variável | Finalidade |
+| --- | --- |
+| `DATABASE_URL` | String de conexão do MySQL/TiDB usada pelo Drizzle. |
+| `JWT_SECRET` | Segredo de assinatura das sessões de servidor. |
+| `VITE_APP_ID`, `OAUTH_SERVER_URL`, `VITE_OAUTH_PORTAL_URL` | Configurações do provedor de sessão disponibilizado pelo ambiente Manus. |
+| `BUILT_IN_FORGE_API_URL`, `BUILT_IN_FORGE_API_KEY` | Serviços internos usados pela infraestrutura do projeto, quando fornecidos pelo ambiente. |
+
+```bash
+pnpm install
+pnpm drizzle-kit migrate
+pnpm build
+NODE_ENV=production pnpm start
+```
+
+O GitHub Pages permanece útil apenas para demonstrações estáticas. Para contas por nick e senha, o destino de produção precisa executar o processo Node.js continuamente e permitir conexão segura ao banco.
+
 ## Licença
 
 MIT
