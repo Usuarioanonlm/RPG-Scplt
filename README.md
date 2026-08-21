@@ -66,6 +66,20 @@ NODE_ENV=production pnpm start
 
 O GitHub Pages permanece útil apenas para demonstrações estáticas. Para contas por nick e senha, o destino de produção precisa executar o processo Node.js continuamente e permitir conexão segura ao banco.
 
+## Expansão da campanha
+
+A versão persistente adiciona uma camada de progressão e mundo reativo vinculada à ficha do jogador.
+
+| Módulo | Recursos principais |
+| --- | --- |
+| Progressão | Nível, experiência, pontos de atributo, talentos por classe e bônus aplicados em combate. |
+| Combate tático | Veneno, queimadura, barreira, atordoamento, críticos, fraquezas, resistências e fases inimigas. |
+| Mundo | Mapa de expedição, eventos, missões, reputação, NPC mercador, codex e conquistas. |
+| Base | Base de expedição, forja de equipamentos e uso de Fragmentos de Obsidiana. |
+| Continuidade | Checkpoints automáticos em rotas, eventos e vitórias, além de um comando manual de salvamento. |
+
+O estado desses módulos é incluído no JSON de campanha vinculado à conta. A suíte de testes cobre progressão, afinidades, persistência e a restauração dos campos de checkpoint ao carregar uma ficha.
+
 ## Licença
 
 MIT
