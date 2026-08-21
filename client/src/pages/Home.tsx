@@ -118,7 +118,8 @@ const newHero = (hp = 84, mana = 36): Hero => ({ hp, mana, xp: 0, gold: 34, leve
 const statusLabel: Record<StatusEffect["id"], string> = { venom: "Veneno", burn: "Queimadura", barrier: "Barreira", stun: "Atordoado" };
 
 export default function Home() {
-  const [sessionToken, setSessionToken] = useState<string | null>(() => window.localStorage.getItem(sessionStorageKey));
+  const pagesDemo = window.location.hostname.endsWith(".github.io");
+  const [sessionToken, setSessionToken] = useState<string | null>(() => pagesDemo ? null : window.localStorage.getItem(sessionStorageKey));
   const [accountNickname, setAccountNickname] = useState("");
   const [hydrated, setHydrated] = useState(false);
   const [characterId, setCharacterId] = useState<number | null>(null);
@@ -133,7 +134,6 @@ export default function Home() {
   const characterIdRef = useRef<number | null>(null);
   const rosterPresentedRef = useRef(false);
   const previewParams = new URLSearchParams(window.location.search);
-  const pagesDemo = window.location.hostname.endsWith(".github.io");
   const marketPreview = previewParams.get("market") === "1";
   const restPreview = previewParams.get("rest") === "1";
   const missionPreview = previewParams.get("mission") === "1";
