@@ -34,10 +34,10 @@ describe("contratos de conta e persistência do RPG", () => {
     expect(result.nickname).toBe("mira_voss");
   });
 
-  it("exige os campos da ficha e persiste o estado serializado", async () => {
+  it("persiste a ficha e a progressão de mundo serializadas", async () => {
     mocks.saveRpgCharacter.mockResolvedValue({ savedAt: 1 });
     const caller = appRouter.createCaller(ctx);
-    const stateJson = JSON.stringify({ hero: { gold: 34 }, inventory: [] });
+    const stateJson = JSON.stringify({ hero: { gold: 86 }, inventory: [], world: { reputation: 4, campRank: 1, events: ["Caravana Perdida"], achievements: ["Fogueira Restaurada"], checkpoint: { label: "Descanso de expedição", nodeId: "camp", encounterIndex: 1, savedAt: 1 } } });
     await caller.rpg.save({
       sessionToken: "token-para-teste-com-mais-de-vinte-caracteres",
       characterName: "Mira Voss",
@@ -47,5 +47,25 @@ describe("contratos de conta e persistência do RPG", () => {
       stateJson,
     });
     expect(mocks.saveRpgCharacter).toHaveBeenCalledWith(expect.objectContaining({ characterName: "Mira Voss", stateJson }));
+    expect(JSON.parse(stateJson).world).toMatchObject({ reputation: 4, campRank: 1, events: ["Caravana Perdida"], checkpoint: { nodeId: "camp", encounterIndex: 1 } });
+  });
+
+  it("restaura o checkpoint completo ao carregar a ficha", async () => {
+    const checkpoint = { label: "Descanso após Bruto das Fendas", nodeId: "rest", encounterIndex: 1, savedAt: 1724239000000 };
+    mocks.getRpgSave.mockResolvedValue({
+      characterName: "Mira Voss",
+      classId: "guardian",
+      originId: "vigil",
+      appearanceId: "copper",
+      stateJson: JSON.stringify({ encounterIndex: 1, world: { checkpoint } }),
+    });
+    const caller = appRouter.createCaller(ctx);
+
+    const restored = await caller.rpg.load({ sessionToken: "token-para-teste-com-mais-de-vinte-caracteres" });
+
+    expect(mocks.getRpgSave).toHaveBeenCalledWith("token-para-teste-com-mais-de-vinte-caracteres");
+    const restoredState = JSON.parse(restored!.stateJson);
+    expect(restoredState.world.checkpoint).toEqual(checkpoint);
+    expect(restoredState.world.checkpoint).toMatchObject({ label: "Descanso após Bruto das Fendas", nodeId: "rest", encounterIndex: 1 });
   });
 });
