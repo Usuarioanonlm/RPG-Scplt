@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { randomBytes, scryptSync, timingSafeEqual } from "node:crypto";
 import { InsertUser, rpgAccounts, rpgCharacters, users } from "../drizzle/schema";
@@ -91,29 +91,42 @@ export async function getRpgSave(sessionToken: string) {
   const db = await getDb();
   if (!db) throw new Error("Banco de dados indisponível.");
   const account = await getRpgAccountByToken(sessionToken);
-  const character = (await db.select().from(rpgCharacters).where(eq(rpgCharacters.accountId, account.id)).limit(1))[0] ?? null;
-  return { account: { nickname: account.nickname }, character };
+  const characters = await db.select().from(rpgCharacters).where(eq(rpgCharacters.accountId, account.id)).orderBy(desc(rpgCharacters.updatedAt));
+  const character = (account.activeCharacterId ? characters.find((entry) => entry.id === account.activeCharacterId) : undefined) ?? characters[0] ?? null;
+  return { account: { nickname: account.nickname, activeCharacterId: character?.id ?? null }, character, characters: characters.map((entry) => ({ id: entry.id, characterName: entry.characterName, classId: entry.classId, originId: entry.originId, appearanceId: entry.appearanceId, updatedAt: entry.updatedAt })) };
 }
 
-export async function saveRpgCharacter(input: { sessionToken: string; characterName: string; classId: string; originId: string; appearanceId: string; stateJson: string }) {
+export async function saveRpgCharacter(input: { sessionToken: string; characterId?: number; characterName: string; classId: string; originId: string; appearanceId: string; stateJson: string }) {
   const db = await getDb();
   if (!db) throw new Error("Banco de dados indisponível.");
   const account = await getRpgAccountByToken(input.sessionToken);
-  await db.insert(rpgCharacters).values({
-    accountId: account.id,
-    characterName: input.characterName,
-    classId: input.classId,
-    originId: input.originId,
-    appearanceId: input.appearanceId,
-    stateJson: input.stateJson,
-  }).onDuplicateKeyUpdate({
-    set: {
+  let characterId = input.characterId;
+  if (characterId) {
+    const existing = (await db.select({ id: rpgCharacters.id }).from(rpgCharacters).where(and(eq(rpgCharacters.id, characterId), eq(rpgCharacters.accountId, account.id))).limit(1))[0];
+    if (!existing) throw new Error("Ficha não encontrada para esta conta.");
+    await db.update(rpgCharacters).set({
       characterName: input.characterName,
       classId: input.classId,
       originId: input.originId,
       appearanceId: input.appearanceId,
       stateJson: input.stateJson,
-    },
-  });
-  return { savedAt: Date.now() };
+    }).where(and(eq(rpgCharacters.id, characterId), eq(rpgCharacters.accountId, account.id)));
+  } else {
+    await db.insert(rpgCharacters).values({ accountId: account.id, characterName: input.characterName, classId: input.classId, originId: input.originId, appearanceId: input.appearanceId, stateJson: input.stateJson });
+    const created = (await db.select().from(rpgCharacters).where(eq(rpgCharacters.accountId, account.id)).orderBy(desc(rpgCharacters.id)).limit(1))[0];
+    if (!created) throw new Error("Não foi possível criar a ficha.");
+    characterId = created.id;
+  }
+  await db.update(rpgAccounts).set({ activeCharacterId: characterId }).where(eq(rpgAccounts.id, account.id));
+  return { savedAt: Date.now(), characterId };
+}
+
+export async function selectRpgCharacter(sessionToken: string, characterId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Banco de dados indisponível.");
+  const account = await getRpgAccountByToken(sessionToken);
+  const character = (await db.select().from(rpgCharacters).where(and(eq(rpgCharacters.id, characterId), eq(rpgCharacters.accountId, account.id))).limit(1))[0];
+  if (!character) throw new Error("Ficha não encontrada.");
+  await db.update(rpgAccounts).set({ activeCharacterId: character.id }).where(eq(rpgAccounts.id, account.id));
+  return character;
 }

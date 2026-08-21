@@ -19,6 +19,7 @@ export const rpgAccounts = mysqlTable("rpgAccounts", {
   nickname: varchar("nickname", { length: 32 }).notNull().unique(),
   passwordHash: varchar("passwordHash", { length: 255 }).notNull(),
   sessionToken: varchar("sessionToken", { length: 96 }).notNull().unique(),
+  activeCharacterId: int("activeCharacterId"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
@@ -27,7 +28,7 @@ export const rpgAccounts = mysqlTable("rpgAccounts", {
 /** Uma ficha ativa por conta, com o estado de campanha serializado para permitir evolução do jogo sem perder saves. */
 export const rpgCharacters = mysqlTable("rpgCharacters", {
   id: int("id").autoincrement().primaryKey(),
-  accountId: int("accountId").notNull().unique(),
+  accountId: int("accountId").notNull(),
   characterName: varchar("characterName", { length: 32 }).notNull(),
   classId: varchar("classId", { length: 32 }).notNull(),
   originId: varchar("originId", { length: 32 }).notNull(),

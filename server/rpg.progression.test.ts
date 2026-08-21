@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { affinityMultiplier, consumeTurn, gainExperience, isPhaseActive, refreshEffect, xpForNextLevel } from "../shared/rpgRules";
+import { affinityMultiplier, consumeTurn, gainExperience, isPhaseActive, marketCatalog, materialSaleValue, missionOutcome, refreshEffect, rotatingStock, sellMaterial, xpForNextLevel } from "../shared/rpgRules";
 
 describe("regras de progressão do RPG", () => {
   it("converte XP suficiente em nível, pontos de atributo e ponto de talento", () => {
@@ -20,5 +20,20 @@ describe("regras de progressão do RPG", () => {
     expect(affinityMultiplier("physical", "arcane", "arcane")).toBe(1);
     expect(isPhaseActive(47, 94, .5)).toBe(true);
     expect(isPhaseActive(48, 94, .5)).toBe(false);
+  });
+
+  it("mantém recompensas de rota e estoque determinísticos", () => {
+    expect(missionOutcome("escort")).toMatchObject({ reputation: 8, gold: 25, ending: "Pacto da Vigília" });
+    expect(missionOutcome("salvage")).toMatchObject({ obsidian: 2, ending: "Espólio das Fendas" });
+    expect(rotatingStock(["a", "b", "c", "d"], 3, 3)).toEqual(["d", "a", "b"]);
+    expect(materialSaleValue(12)).toBe(9);
+    expect(materialSaleValue(0)).toBe(1);
+  });
+
+  it("monta o catálogo rotativo e liquida materiais sem afetar os demais itens", () => {
+    const catalog = [{ id: "healing" }, { id: "mana" }, { id: "greaterheal" }, { id: "ward" }, { id: "sabre" }, { id: "seal" }, { id: "cloak" }];
+    expect(marketCatalog(catalog, 2, ["healing", "mana", "greaterheal"]).map((entry) => entry.id)).toEqual(["healing", "mana", "greaterheal", "seal", "cloak", "ward"]);
+    const sale = sellMaterial([{ id: "obsidian", quantity: 2, value: 8 }, { id: "mark", quantity: 1, value: 12 }], "obsidian");
+    expect(sale).toEqual({ gold: 6, inventory: [{ id: "obsidian", quantity: 1, value: 8 }, { id: "mark", quantity: 1, value: 12 }] });
   });
 });

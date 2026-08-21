@@ -59,3 +59,34 @@ export function affinityMultiplier(affinity: DamageAffinity, weakness: DamageAff
 export function isPhaseActive(currentHp: number, maxHp: number, threshold?: number): boolean {
   return Boolean(threshold && currentHp <= maxHp * threshold);
 }
+
+export type MissionPath = "escort" | "salvage";
+
+export function missionOutcome(path: MissionPath) {
+  return path === "escort"
+    ? { reputation: 8, gold: 25, obsidian: 0, ending: "Pacto da Vigília" }
+    : { reputation: 3, gold: 10, obsidian: 2, ending: "Espólio das Fendas" };
+}
+
+export function rotatingStock<T>(catalog: T[], rotation: number, count: number): T[] {
+  if (!catalog.length || count <= 0) return [];
+  const size = Math.min(catalog.length, count);
+  const start = Math.abs(rotation) % catalog.length;
+  return Array.from({ length: size }, (_, index) => catalog[(start + index) % catalog.length]);
+}
+
+export function materialSaleValue(value: number): number {
+  return Math.max(1, Math.floor(Math.max(0, value) * .75));
+}
+
+export function marketCatalog<T extends { id: string }>(catalog: T[], rotation: number, stapleIds: string[], rotatingCount = 3): T[] {
+  const staples = catalog.filter((entry) => stapleIds.includes(entry.id));
+  const travelling = rotatingStock(catalog.filter((entry) => !stapleIds.includes(entry.id)), rotation, rotatingCount);
+  return [...staples, ...travelling];
+}
+
+export function sellMaterial<T extends { id: string; quantity: number; value: number }>(inventory: T[], itemId: string): { inventory: T[]; gold: number } {
+  const item = inventory.find((entry) => entry.id === itemId);
+  if (!item || item.quantity <= 0) return { inventory, gold: 0 };
+  return { inventory: inventory.map((entry) => entry.id === itemId ? { ...entry, quantity: entry.quantity - 1 } : entry), gold: materialSaleValue(item.value) };
+}

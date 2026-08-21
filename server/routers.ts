@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getRpgSave, loginRpgAccount, registerRpgAccount, saveRpgCharacter } from "./db";
+import { getRpgSave, loginRpgAccount, registerRpgAccount, saveRpgCharacter, selectRpgCharacter } from "./db";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
@@ -12,6 +12,7 @@ const credentials = z.object({
 
 const saveInput = z.object({
   sessionToken: z.string().min(20),
+  characterId: z.number().int().positive().optional(),
   characterName: z.string().trim().min(2).max(32),
   classId: z.string().max(32),
   originId: z.string().max(32),
@@ -34,6 +35,7 @@ export const appRouter = router({
     login: publicProcedure.input(credentials).mutation(({ input }) => loginRpgAccount(input.nickname, input.password)),
     load: publicProcedure.input(z.object({ sessionToken: z.string().min(20) })).query(({ input }) => getRpgSave(input.sessionToken)),
     save: publicProcedure.input(saveInput).mutation(({ input }) => saveRpgCharacter(input)),
+    selectCharacter: publicProcedure.input(z.object({ sessionToken: z.string().min(20), characterId: z.number().int().positive() })).mutation(({ input }) => selectRpgCharacter(input.sessionToken, input.characterId)),
   }),
 });
 
