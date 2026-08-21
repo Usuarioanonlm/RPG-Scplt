@@ -306,7 +306,7 @@ export default function Home() {
   const signOut = () => { window.localStorage.removeItem(sessionStorageKey); setSessionToken(null); setAccountNickname(""); setCharacterId(null); characterIdRef.current = null; setCharacterRoster([]); rosterPresentedRef.current = false; setHydrated(false); setStarted(false); };
 
   if (!sessionToken && !previewMode && !(pagesDemo && started)) return <AccountGate staticDemo={pagesDemo} onPreview={() => { setDraft({ name: "Mira Voss", classId: "guardian", originId: "vigil", appearanceId: "copper" }); setStarted(true); }} onAuthenticated={(token, nickname) => { window.localStorage.setItem(sessionStorageKey, token); setAccountNickname(nickname); setSessionToken(token); }} />;
-  if (!hydrated && !previewMode) return <main className="account-shell"><div className="account-card panel-frame"><Sparkles size={28} /><h1>Consultando a crônica</h1><p>Carregando sua conta e sua ficha persistida.</p></div></main>;
+  if (!hydrated && !previewMode && !pagesDemo) return <main className="account-shell"><div className="account-card panel-frame"><Sparkles size={28} /><h1>Consultando a crônica</h1><p>Carregando sua conta e sua ficha persistida.</p></div></main>;
   if (!started) return <Creator draft={draft} onChange={setDraft} onBegin={begin} />;
 
   return <main className="app-shell"><div className="ambient-glow ambient-glow-one" /><div className="ambient-glow ambient-glow-two" />
