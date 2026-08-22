@@ -1,6 +1,6 @@
 export type AttributeKey = "force" | "agility" | "arcane" | "defense";
 export type StatusId = "venom" | "burn" | "barrier" | "stun";
-export type DamageAffinity = "physical" | "arcane";
+export type DamageAffinity = "physical" | "arcane" | "fire" | "ice" | "lightning" | "holy" | "shadow";
 
 export type StatusEffect = {
   id: StatusId;

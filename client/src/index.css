@@ -110,3 +110,134 @@ button:focus-visible { outline: 2px solid #e9b274; outline-offset: 3px; }
 .crafting-dock { position: fixed; z-index: 18; right: 24px; bottom: 22px; display: inline-flex; align-items: center; gap: 8px; padding: 11px 14px; color: #171009; background: #dfaa66; border: 1px solid #f1c17f; box-shadow: 0 12px 32px rgba(0,0,0,.36); font-size: 10px; font-weight: 800; letter-spacing: .08em; transition: transform .16s cubic-bezier(.23,1,.32,1), background .16s ease-out; }.crafting-dock:hover { background: #efba77; transform: translateY(-2px); }.crafting-dock span { padding-left: 7px; border-left: 1px solid rgba(45,27,11,.28); font-size: 8px; }.crafting-modal { width: min(1040px, calc(100vw - 34px)); max-height: min(760px, calc(100vh - 34px)); overflow: auto; }.crafting-layout { display: grid; grid-template-columns: minmax(290px, .95fr) minmax(320px, 1.05fr); gap: 14px; padding-top: 16px; }.recipe-list { display: grid; gap: 7px; align-content: start; }.recipe-card { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: center; padding: 12px; color: #c9d3d0; text-align: left; background: rgba(5,9,13,.44); border: 1px solid rgba(184,201,202,.13); transition: border-color .16s ease-out, background .16s ease-out, transform .16s ease-out; }.recipe-card:hover, .recipe-card.selected { background: rgba(216,146,82,.08); border-color: rgba(222,166,94,.62); }.recipe-card:active { transform: scale(.98); }.recipe-card > span { display: grid; width: 33px; height: 33px; place-items: center; color: #e0a563; background: rgba(216,146,82,.12); }.recipe-card strong { display: block; margin-top: 2px; color: #eee2cf; font: 600 13px "Cinzel", serif; }.recipe-card small { color: #c79b63; font-size: 9px; font-weight: 700; letter-spacing: .08em; }.recipe-card p { margin: 3px 0 0; color: #8e9b9c; font-size: 10px; }.recipe-card em { color: #8fa9a7; font-size: 8px; font-style: normal; font-weight: 800; letter-spacing: .07em; text-align: right; }.recipe-card.rarity-épico { border-color: rgba(164,120,216,.28); }.recipe-card.rarity-místico { border-color: rgba(97,201,203,.34); background: linear-gradient(100deg, rgba(65,149,159,.10), rgba(137,81,176,.10)); }.recipe-inspector { min-height: 334px; padding: 23px; background: linear-gradient(145deg, rgba(12,20,27,.96), rgba(5,9,13,.86)); border: 1px solid rgba(219,163,94,.38); }.recipe-inspector > h3 { margin: 9px 0 7px; color: #f1e4cf; font: 600 23px "Cinzel", serif; }.recipe-inspector > p { margin: 0; color: #97a6a5; font-size: 12px; line-height: 1.5; }.craft-effect { margin: 17px 0; padding: 11px; background: rgba(216,146,82,.07); border-left: 2px solid #dfa15d; }.craft-effect span, .ingredient-list > span { display: block; color: #dca364; font-size: 8px; font-weight: 800; letter-spacing: .13em; }.craft-effect strong { display: block; margin-top: 5px; color: #e5e2d7; font-size: 12px; }.ingredient-list { display: grid; gap: 6px; }.ingredient-list > span { margin-bottom: 2px; }.ingredient-list > div { display: flex; justify-content: space-between; align-items: center; padding: 8px 9px; color: #aebabb; background: rgba(3,7,10,.5); border: 1px solid rgba(184,201,202,.11); font-size: 10px; }.ingredient-list > div.ready { color: #a8d5c1; border-color: rgba(116,194,156,.32); }.ingredient-list > div.missing { color: #d69a93; border-color: rgba(203,108,102,.25); }.ingredient-list strong { font-size: 10px; }.craft-button { width: 100%; margin-top: 18px; padding: 12px; color: #161008; background: #dfa35e; border: 1px solid #f1be78; font-size: 11px; font-weight: 800; letter-spacing: .07em; }.craft-button:disabled { color: #697375; background: #1a2429; border-color: #314047; cursor: not-allowed; }.rarity-místico { --rarity-tone: #79d3d2; }
 @media (max-width: 760px) { .crafting-dock { right: 14px; bottom: 14px; max-width: calc(100vw - 28px); }.crafting-dock span { display: none; }.crafting-modal { width: calc(100vw - 20px); max-height: calc(100vh - 20px); padding: 17px; }.crafting-modal .world-heading { padding-right: 25px; }.crafting-modal .world-heading h2 { font-size: 19px; }.crafting-modal .reputation-card { display: none; }.crafting-layout { grid-template-columns: 1fr; gap: 11px; padding-top: 11px; }.recipe-list { grid-template-columns: 1fr; }.recipe-card { grid-template-columns: 31px 1fr; padding: 10px; }.recipe-card em { grid-column: 2; text-align: left; }.recipe-inspector { min-height: 0; padding: 16px; }.recipe-inspector > h3 { font-size: 19px; }.crafting-overlay { padding: 10px; } }
 .campaign-banner .eyebrow { font-size: 0; }.campaign-banner .eyebrow::after { content: "CRÔNICA PRINCIPAL"; color: #dba365; font-size: 10px; font-weight: 800; letter-spacing: .13em; }.campaign-banner .eyebrow svg { color: #dba365; }
+/* Atlas de Campanha */
+.campaign-atlas { width: min(1120px, calc(100vw - 28px)); max-height: min(88vh, 900px); overflow: auto; }
+.campaign-map-art { min-height: 150px; margin: 4px 0 18px; border: 1px solid rgba(211,155,84,.36); background-image: linear-gradient(90deg, rgba(8,12,18,.16), rgba(8,12,18,.64)), url('https://files.manuscdn.com/user_upload_by_module/session_file/310419663030079711/TEsAKrPzGGeinBfR.png') !important; background-position: center; background-size: cover; display: flex; align-items: end; padding: 18px; box-shadow: inset 0 -40px 45px rgba(2,5,10,.72); }
+.campaign-map-art span { color: #f0c180; font-size: .68rem; letter-spacing: .15em; font-weight: 800; }
+.campaign-region-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
+.campaign-region-card { min-height: 160px; border: 1px solid rgba(184,201,213,.16); background: linear-gradient(145deg, rgba(22,31,40,.94), rgba(10,15,22,.96)); padding: 14px; display: grid; grid-template-columns: 30px 1fr; gap: 10px; position: relative; overflow: hidden; }
+.campaign-region-card > span { color: #dca760; font-family: "Cinzel", serif; font-weight: 800; }
+.campaign-region-card h3, .campaign-mission-card h3, .campaign-dungeon-card h3 { margin: 4px 0; font-family: "Cinzel", serif; color: #f4ead7; font-size: .98rem; }
+.campaign-region-card p, .campaign-mission-card p, .campaign-dungeon-card p { color: #aeb8bf; font-size: .78rem; margin: 0 0 8px; line-height: 1.45; }
+.campaign-region-card small, .campaign-mission-card small, .campaign-dungeon-card small { color: #cf9f63; font-size: .62rem; letter-spacing: .07em; text-transform: uppercase; }
+.campaign-region-card em, .campaign-mission-card em, .campaign-dungeon-card em { color: #8ca8ae; font-size: .67rem; font-style: normal; }
+.campaign-region-card button, .campaign-mission-card > button, .campaign-dungeon-card button { border: 1px solid rgba(218,165,92,.55); background: rgba(173,116,53,.16); color: #f4d39e; padding: 7px 10px; font-size: .69rem; font-weight: 800; text-transform: uppercase; align-self: end; }
+.campaign-region-card.active { border-color: rgba(235,179,95,.82); box-shadow: inset 0 0 24px rgba(205,126,46,.11); }
+.campaign-region-card.locked { filter: grayscale(.85); opacity: .55; }
+.campaign-region-card.locked button { opacity: .6; }
+.campaign-mission-list, .campaign-dungeon-list { display: grid; gap: 12px; }
+.campaign-mission-card, .campaign-dungeon-card { border: 1px solid rgba(184,201,213,.16); background: rgba(13,20,28,.94); padding: 15px; display: grid; grid-template-columns: 42px 1fr auto; gap: 12px; align-items: start; }
+.campaign-mission-card.done { border-color: rgba(103,177,128,.52); }
+.campaign-mission-card.locked { opacity: .48; }
+.mission-kind, .campaign-dungeon-card > span { color: #dca760; display: grid; gap: 3px; justify-items: center; font-size: .57rem; text-transform: uppercase; }
+.campaign-mission-card ol { list-style: none; padding: 0; margin: 9px 0; display: grid; gap: 4px; }
+.campaign-mission-card li { color: #70808b; display: flex; gap: 7px; align-items: center; font-size: .72rem; }
+.campaign-mission-card li.current { color: #f1c177; }
+.campaign-mission-card li.done { color: #89c79c; }
+.campaign-dungeon-card { grid-template-columns: 46px 1fr auto; }
+.dungeon-modal { width: min(760px, calc(100vw - 28px)); }
+.dungeon-run-layout { display: grid; gap: 16px; }
+.dungeon-path { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-items: center; }
+.dungeon-path span { min-height: 48px; border: 1px solid rgba(157,174,187,.2); display: grid; place-items: center; color: #65737d; position: relative; }
+.dungeon-path span::after { content: ""; position: absolute; left: 100%; width: 8px; height: 1px; background: rgba(157,174,187,.2); }
+.dungeon-path span:last-child::after { display: none; }
+.dungeon-path span.cleared { color: #8cc79c; border-color: rgba(112,190,142,.55); background: rgba(65,137,90,.11); }
+.dungeon-path span.next { color: #efc177; border-color: rgba(230,170,88,.76); box-shadow: inset 0 0 18px rgba(210,132,45,.15); }
+.dungeon-path small { font-size: .58rem; }
+.dungeon-room-card { border: 1px solid rgba(216,162,87,.4); background: radial-gradient(circle at 80% 0, rgba(178,97,36,.16), transparent 36%), rgba(12,18,25,.94); padding: 24px; }
+.dungeon-room-card h3 { color: #f3e6cd; font-family: "Cinzel", serif; font-size: 1.3rem; margin: 7px 0; }
+.dungeon-room-card p { color: #aeb8bf; max-width: 52ch; line-height: 1.6; }
+.mission-scene { width: min(650px, calc(100vw - 28px)); padding: 28px; background: radial-gradient(circle at 85% 0, rgba(178,97,36,.18), transparent 38%), rgba(12,18,25,.98); }
+.mission-scene h2 { font-family: "Cinzel", serif; color: #f3e6cd; margin: 8px 0; }
+.mission-scene p { color: #aeb8bf; line-height: 1.6; }
+.mission-scene-objective { border-left: 2px solid #dca760; color: #f0c180 !important; padding-left: 12px; }
+.mission-scene-choices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 18px; }
+.mission-scene-choices button { text-align: left; border: 1px solid rgba(214,164,90,.38); background: rgba(22,31,40,.9); color: #f3e6cd; padding: 15px; display: grid; gap: 5px; }
+.mission-scene-choices button:hover { border-color: rgba(230,177,97,.82); background: rgba(102,64,28,.26); }
+.mission-scene-choices strong { font-family: "Cinzel", serif; font-size: .82rem; }
+.mission-scene-choices small { color: #aeb8bf; line-height: 1.4; }
+.campaign-systems-grid { display: grid; gap: 12px; }
+.campaign-system-card { border: 1px solid rgba(184,201,213,.16); background: linear-gradient(130deg, rgba(17,26,36,.96), rgba(10,15,22,.96)); padding: 16px; display: grid; grid-template-columns: 42px 1fr auto; gap: 13px; align-items: start; }
+.campaign-system-card > span { color: #dca760; }
+.campaign-system-card h3 { color: #f3e6cd; font-family: "Cinzel", serif; margin: 4px 0; font-size: 1rem; }
+.campaign-system-card p { color: #aeb8bf; margin: 0 0 7px; font-size: .78rem; line-height: 1.5; }
+.campaign-system-card small { color: #cf9f63; font-size: .61rem; letter-spacing: .08em; }
+.campaign-system-card em { color: #8fc8a0; font-size: .68rem; font-style: normal; }
+.campaign-system-card > button { border: 1px solid rgba(218,165,92,.55); background: rgba(173,116,53,.16); color: #f4d39e; padding: 8px 11px; font-size: .69rem; font-weight: 800; text-transform: uppercase; }
+.set-bonus { display: flex; align-items: center; gap: 5px; color: #8fc8a0; margin-top: 7px; font-size: .66rem; }
+.faction-buttons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 9px; }
+.faction-buttons button { border: 1px solid rgba(166,183,194,.23); background: transparent; color: #9ba8b0; padding: 5px 8px; font-size: .65rem; }
+.faction-buttons button.active { border-color: rgba(225,174,98,.7); background: rgba(175,113,44,.2); color: #f2c783; }
+.guild-ledger { position: fixed; z-index: 81; right: 36px; bottom: 28px; width: 250px; border: 1px solid rgba(218,165,92,.52); background: rgba(10,16,23,.96); box-shadow: 0 18px 42px rgba(0,0,0,.42); padding: 12px; display: grid; gap: 5px; }
+.guild-ledger > span { color: #dca760; font-size: .63rem; letter-spacing: .08em; display: flex; gap: 6px; align-items: center; }
+.guild-ledger strong { color: #f3e6cd; font-family: "Cinzel", serif; font-size: .82rem; }
+.guild-ledger small { color: #aab5bc; font-size: .67rem; }
+.guild-ledger button { border: 1px solid rgba(218,165,92,.55); background: rgba(173,116,53,.18); color: #f4d39e; padding: 7px; margin-top: 4px; font-size: .65rem; font-weight: 800; text-transform: uppercase; }
+.specialist-dock { position: fixed; z-index: 45; bottom: 22px; left: 22px; border: 1px solid rgba(180,132,67,.55); background: rgba(12,18,25,.96); color: #f0c180; padding: 9px 12px; display: flex; gap: 8px; align-items: center; font-size: .68rem; font-weight: 800; letter-spacing: .04em; }
+.specialist-dock span { color: #87979f; font-size: .58rem; }
+.specialist-shop { width: min(790px, calc(100vw - 28px)); max-height: 88vh; overflow: auto; padding: 22px; }
+.specialist-list { display: grid; gap: 9px; }
+.specialist-list article { border: 1px solid rgba(174,193,203,.16); background: rgba(15,23,32,.94); display: grid; grid-template-columns: 36px 1fr auto; gap: 12px; align-items: center; padding: 13px; }
+.specialist-list article > span { color: #dca760; }
+.specialist-list h3 { font-family: "Cinzel", serif; color: #f3e6cd; font-size: .9rem; margin: 2px 0; }
+.specialist-list p { margin: 0; color: #aeb8bf; font-size: .72rem; }
+.specialist-list small { color: #d3a565; font-size: .6rem; text-transform: uppercase; }
+.specialist-list button { border: 1px solid rgba(218,165,92,.55); background: rgba(173,116,53,.16); color: #f4d39e; padding: 8px; font-size: .67rem; font-weight: 800; }
+.faction-lock { margin: 12px 0; border-left: 2px solid #dca760; padding-left: 10px; color: #e7bd7e; font-size: .72rem; }
+@media (max-width: 720px) {
+  .dungeon-modal { width: calc(100vw - 16px); }
+  .dungeon-room-card { padding: 17px; }
+  .dungeon-path { gap: 4px; }
+  .dungeon-path span::after { width: 4px; }
+  .mission-scene { width: calc(100vw - 16px); padding: 20px; }
+  .mission-scene-choices { grid-template-columns: 1fr; }
+  .campaign-system-card { grid-template-columns: 32px 1fr; }
+  .campaign-system-card > button { grid-column: 1 / -1; width: 100%; }
+  .guild-ledger { display: none; }
+  .specialist-dock { left: 10px; bottom: 10px; }
+  .specialist-dock span { display: none; }
+  .specialist-shop { width: calc(100vw - 16px); max-height: 94vh; }
+  .specialist-list article { grid-template-columns: 30px 1fr; }
+  .specialist-list button { grid-column: 1 / -1; width: 100%; }
+}
+@media (max-width: 720px) {
+  .campaign-atlas { width: calc(100vw - 16px); max-height: 94vh; }
+  .campaign-map-art { min-height: 108px; }
+  .campaign-region-grid { grid-template-columns: 1fr; }
+  .campaign-mission-card, .campaign-dungeon-card { grid-template-columns: 32px 1fr; }
+  .campaign-mission-card > button, .campaign-dungeon-card button { grid-column: 1 / -1; width: 100%; }
+}
+
+/* Mural físico de missões: pergaminhos, lacres e alfinetes preservando ações do Atlas. */
+.campaign-mission-list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.35rem 1rem;
+  padding: 4.35rem 1.35rem 1.7rem;
+  border: 10px solid #392417;
+  border-radius: 0.25rem;
+  background: linear-gradient(90deg, rgba(22, 10, 5, 0.48), transparent 4%, transparent 96%, rgba(22, 10, 5, 0.48)), repeating-linear-gradient(8deg, rgba(72, 36, 16, 0.35) 0 3px, rgba(145, 80, 35, 0.1) 3px 11px), linear-gradient(135deg, #76401e, #a65d28 45%, #643117);
+  box-shadow: inset 0 0 0 2px #b77a40, inset 0 0 38px rgba(20, 8, 3, 0.75), 0 1.2rem 2rem rgba(0,0,0,.32);
+}
+.campaign-mission-list::before { content: "QUADRO DE MISSÕES"; position: absolute; top: -1.1rem; left: 50%; transform: translateX(-50%); padding: .4rem 1.4rem; border: 2px solid #31190d; border-radius: .2rem; background: linear-gradient(#6f4526, #3c2416); color: #f2d38e; font-family: "Cinzel", Georgia, serif; font-weight: 800; letter-spacing: .13em; font-size: .72rem; text-shadow: 0 1px #140805; box-shadow: 0 .35rem .55rem rgba(0,0,0,.42); }
+.campaign-mission-card { position: relative; min-height: 20rem; padding: 2.2rem 1.15rem 1rem !important; border: 1px solid #5b3518 !important; border-radius: .1rem !important; color: #422a16 !important; background: radial-gradient(circle at 15% 8%, rgba(255,255,255,.55), transparent 20%), repeating-linear-gradient(0deg, rgba(100,66,27,.08) 0 1px, transparent 1px 5px), linear-gradient(135deg, #f1dca7, #cda866) !important; box-shadow: .35rem .55rem .55rem rgba(25, 10, 3, .42), inset 0 0 1.5rem rgba(83, 47, 15, .22) !important; transform: rotate(-1.1deg); transition: transform .18s var(--ease-out, ease), box-shadow .18s var(--ease-out, ease); }
+.campaign-mission-card:nth-of-type(2n) { transform: rotate(1.35deg) translateY(.55rem); }
+.campaign-mission-card:nth-of-type(3n) { transform: rotate(-.35deg) translateY(-.25rem); }
+.campaign-mission-card:hover { transform: rotate(0) translateY(-.28rem) scale(1.015); box-shadow: .5rem .75rem .85rem rgba(25, 10, 3, .52), inset 0 0 1.5rem rgba(83, 47, 15, .22) !important; }
+.campaign-mission-card::before { content: ""; position: absolute; width: .72rem; height: .72rem; top: .55rem; left: 50%; border: 2px solid #631c17; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ef8469, #8d1e18 60%, #4c100d 100%); box-shadow: 0 .12rem .12rem rgba(0,0,0,.45); }
+.campaign-mission-card.done::before { background: radial-gradient(circle at 35% 30%, #d6b45e, #85651a 60%, #4d3a0e 100%); }
+.campaign-mission-card .mission-kind { position: absolute; top: 1rem; left: 1rem; color: #6d3119 !important; font-family: "Cinzel", Georgia, serif; font-weight: 800; font-size: .61rem; letter-spacing: .11em; }
+.campaign-mission-card small, .campaign-mission-card p, .campaign-mission-card li, .campaign-mission-card em { color: #56381f !important; }
+.campaign-mission-card h3 { color: #2d1b0e !important; font-family: "Cinzel", Georgia, serif; font-size: 1rem; line-height: 1.28; margin-top: .6rem; }
+.campaign-mission-card ol { border-top: 1px dashed rgba(79, 44, 18, .45); padding-top: .55rem; }
+.campaign-mission-card li.current { color: #7b2418 !important; font-weight: 800; }
+.campaign-mission-card li.done { color: #47602b !important; }
+.campaign-mission-card button { width: 100%; margin-top: .7rem; border: 1px solid #5f3419; border-radius: 0; background: #7d3820; color: #f6dfa8; font-family: "Cinzel", Georgia, serif; font-size: .65rem; letter-spacing: .06em; }
+.campaign-mission-card button:disabled { background: rgba(88, 60, 31, .45); color: #755c3f; }
+.campaign-mission-card::after { content: attr(data-threat-label); position: absolute; right: .75rem; top: .78rem; border: 1px solid rgba(106, 43, 26, .62); padding: .16rem .3rem; color: #7e2e1d; font-family: "Cinzel", Georgia, serif; font-weight: 800; font-size: .52rem; letter-spacing: .06em; }
+.campaign-mission-card[data-threat="baixa"]::after { color: #4b6529; border-color: rgba(75,101,41,.55); }
+.campaign-mission-card[data-threat="média"]::after { color: #8b551a; border-color: rgba(139,85,26,.56); }
+.campaign-mission-card[data-threat="extrema"]::after { color: #6c1720; border-color: rgba(108,23,32,.6); }
+@media (max-width: 860px) { .campaign-mission-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .campaign-mission-list { grid-template-columns: 1fr; gap: 1rem; padding: 3.7rem .9rem 1rem; border-width: 7px; } .campaign-mission-card, .campaign-mission-card:nth-of-type(2n), .campaign-mission-card:nth-of-type(3n) { min-height: auto; transform: rotate(0); } .campaign-mission-card:hover { transform: translateY(-.15rem); } }

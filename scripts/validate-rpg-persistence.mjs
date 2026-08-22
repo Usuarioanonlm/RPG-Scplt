@@ -21,7 +21,7 @@ const stateFor = (name, missionPath, gold, obsidian) => {
   hero: { gold },
   inventory: crafted.inventory,
   equipped: forged.equipped,
-  world: { missionPath, completedMissions: ["Juramento da Caravana"] },
+  world: { missionPath, completedMissions: ["Juramento da Caravana", "Lobos ao Crepúsculo", "Caverna dos Goblins"], activeRegion: "forest", missionProgress: { "wolves-at-dusk": { stage: 2, completed: false } }, missionChoices: { "wolves-at-dusk:1": "guard" }, activeMissionId: "wolves-at-dusk", monsterKills: 19, dungeonRooms: { forest: 5 }, dungeonChoices: { "forest:3": "loot" }, weather: "névoa", mountTier: 2, guildRank: 1, guildFavor: 10, faction: "Arquivo", factionReputation: { Vigília: 4, Ermos: 1, Arquivo: 9 } },
 });
 };
 
@@ -46,6 +46,18 @@ assert.equal(restored.equipped.relic, "thornsigil");
 assert.equal(restored.inventory.find((item) => item.id === "riftheart")?.quantity, 1);
 assert.equal(restored.inventory.find((item) => item.id === "obsidian")?.quantity, 1);
 assert.equal(restored.inventory.find((item) => item.id === "embercore")?.quantity, 0);
+assert.equal(restored.world.activeRegion, "forest");
+assert.equal(restored.world.missionProgress["wolves-at-dusk"].stage, 2);
+assert.equal(restored.world.dungeonRun, undefined);
+assert.equal(restored.world.mountTier, 2);
+assert.equal(restored.world.guildRank, 1);
+assert.equal(restored.world.guildFavor, 10);
+assert.equal(restored.world.missionChoices["wolves-at-dusk:1"], "guard");
+assert.equal(restored.world.dungeonChoices["forest:3"], "loot");
+assert.equal(restored.world.factionReputation.Arquivo, 9);
+assert.equal(restored.world.completedMissions.includes("Caverna dos Goblins"), true);
+assert.equal(restored.world.missionProgress["wolves-at-dusk"].stage, 2);
+assert.equal(restored.world.faction, "Arquivo");
 
-console.log("Persistência real validada: duas fichas, seleção ativa, missão, economia, raça, relíquia e equipamento místico forjado restaurados.");
+console.log("Persistência real validada: fichas, seleção ativa, missão encenada, região, dungeon, clima, montaria, facção e equipamento místico forjado restaurados.");
 process.exit(0);

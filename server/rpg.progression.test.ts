@@ -17,6 +17,7 @@ describe("regras de progressão do RPG", () => {
   it("amplia fraquezas, reduz resistências e ativa a fase na faixa correta de vitalidade", () => {
     expect(affinityMultiplier("arcane", "arcane", "physical")).toBe(1.35);
     expect(affinityMultiplier("physical", "arcane", "physical")).toBe(.72);
+    expect(affinityMultiplier("fire", "fire", "ice")).toBe(1.35);
     expect(affinityMultiplier("physical", "arcane", "arcane")).toBe(1);
     expect(isPhaseActive(47, 94, .5)).toBe(true);
     expect(isPhaseActive(48, 94, .5)).toBe(false);
