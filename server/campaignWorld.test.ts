@@ -49,4 +49,12 @@ describe("campanha regional", () => {
     expect(missionThreatLabel(legendary)).toBe("EXTREMA");
     expect(missionThreatLabel(daily)).toBe("BAIXA");
   });
+
+  it("oferece vários avisos na região inicial e libera a etapa de campo após a dungeon", () => {
+    const villageMissions = worldMissions.filter((entry) => entry.region === "village");
+    const mission = worldMissions.find((entry) => entry.id === "trail-oath")!;
+    const progress = advanceMissionAfterDungeon({}, mission, ["Catacumbas do Sino"], "Catacumbas do Sino");
+    expect(villageMissions).toHaveLength(5);
+    expect(progress[mission.id]).toEqual({ stage: 1, completed: false });
+  });
 });
